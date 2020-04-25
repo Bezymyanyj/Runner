@@ -5018,7 +5018,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773389516}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &635733603
 GameObject:
@@ -5363,17 +5363,22 @@ PrefabInstance:
     - target: {fileID: 3565108860335719697, guid: eb6089e3fcdf1ba46a940421b97fb206,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.5370472
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3565108860335719697, guid: eb6089e3fcdf1ba46a940421b97fb206,
         type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 3565108860335719697, guid: eb6089e3fcdf1ba46a940421b97fb206,
         type: 3}
       propertyPath: m_Center.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565108860335719697, guid: eb6089e3fcdf1ba46a940421b97fb206,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5070085465657264868, guid: eb6089e3fcdf1ba46a940421b97fb206,
         type: 3}
@@ -5892,6 +5897,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1063482949}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1933951479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933951472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcafd0e23c5db44ba848c5e7c88553c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2085598179
 GameObject:
   m_ObjectHideFlags: 0
@@ -5922,8 +5939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeRoads:
-  - {fileID: 6922931851669990513, guid: 54ab46ec78501f34cb1bd2bacf2c3461, type: 3}
   - {fileID: 6922931851669990513, guid: 0f20ca87ed2e1dc438efa8f0618eaee1, type: 3}
+  - {fileID: 6922931851669990513, guid: 54ab46ec78501f34cb1bd2bacf2c3461, type: 3}
   - {fileID: 6922931851669990513, guid: 5551b8ac46de968449769224475a03e6, type: 3}
   - {fileID: 6922931851669990513, guid: db3c584bc199d2c4291b32acdbfc97c6, type: 3}
   obstacleRoads:
@@ -6001,7 +6018,7 @@ PrefabInstance:
     - target: {fileID: 6838782606043227560, guid: 21088e1f92e85574d85553d173971aea,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6838782606043227560, guid: 21088e1f92e85574d85553d173971aea,
         type: 3}
