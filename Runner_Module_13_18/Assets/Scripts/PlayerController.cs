@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private ArrayParticals arrayParticles;
     private Animator animator;
     private CharacterController controller;
+    private AnimationsController anim;
 
     private float runTimeAnimation;
     private float leftTimeAnimation;
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public bool JumpDetect { get; set; }
     private void Start()
     {
+        anim = GetComponent<AnimationsController>();
         animations = GetComponent<ArrayAnimation>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
@@ -178,22 +181,6 @@ public class PlayerController : MonoBehaviour
         float distancePerFrame = speed * Time.deltaTime;
         controller.Move(Vector3.up * distancePerFrame);
         currentHeight -= distancePerFrame;
-        
-    }
-
-    /// <summary>
-    /// Меняем параметры скорости,и флаги проверки прыжка
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator ChangeParam()
-    {
-        yield return new WaitForSeconds(jumpTimeAnimation * 0.7f);
-
-        speedIndex = 1;
-        IsJumping = false;
-        JumpDetect = false;
-
-        yield break;
     }
 
     /// <summary>
@@ -217,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDizzy)
         {
-            Falling();
+            StartCoroutine(Falling());
         }
         isDizzy = true;
 
@@ -245,12 +232,16 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Включает анимацию подения, отключает движение игрока вперед
     /// </summary>
-    public void Falling()
+    public IEnumerator Falling()
     {
         RoadsController.isFall = true;
         isFall = true;
         speedIndex = 0f;
         animator.SetTrigger("Fall");
         animator.SetLayerWeight(1, 0);
+
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("Runner");
+
     }
 }
