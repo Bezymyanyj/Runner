@@ -15,7 +15,7 @@ public class TrigerFalling : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            playerController.Falling();
+            StartCoroutine(playerController.Falling());
         }
     }
 }

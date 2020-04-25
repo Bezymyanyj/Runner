@@ -22,7 +22,7 @@ public class TrigerDizzy : MonoBehaviour
         }
         else if (other.CompareTag("Walls"))
         {
-            playerController.Falling();
+            StartCoroutine(playerController.Falling());
         }
     }
 

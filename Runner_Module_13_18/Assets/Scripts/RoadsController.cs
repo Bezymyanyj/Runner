@@ -40,6 +40,8 @@ public class RoadsController : SingletonAsComponent<RoadsController>
         //Устонавливаем коэффициенты частоты появления дорог  
         roadBuilder.FreeRoadsRatio = freeRoadsRatio;
         roadBuilder.HardObstacleRoadsRatio = hardObstacleRoadsRatio;
+
+        isFall = false;
     }
 
     // Update is called once per frame
