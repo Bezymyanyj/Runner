@@ -11,54 +11,36 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.8f;
     public float slowingRunDuringJump = 0.15f;
     public float jumpStopHeight = 1.5f;
+    public float dizzyDuration = 10f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-
-    private ArrayAnimation animations;
-    private ArrayParticals arrayParticles;
-    private Animator animator;
     private CharacterController controller;
     private AnimationsController anim;
-
-    private float runTimeAnimation;
-    private float leftTimeAnimation;
-    private float rightTimeAnimation;
-    private float jumpTimeAnimation;
+    private Animator animator;
 
     private float currentDirection;
     private float currentHeight;
     private float startPossition;
     private float speedIndex = 1f;
     private float speedRunning;
-    private float startJump;
 
-    private bool isAimated = false;
     private bool isMoving = false;
     private bool isDizzy = false;
     private bool isFall = false;
     private bool isGrounded;
     private Vector3 move;
-    private Coroutine changeParam;
 
 
     public float currentDistance { get; private set; }
     public bool IsJumping { get; private set; }
-    public bool JumpDetect { get; set; }
     private void Start()
     {
         anim = GetComponent<AnimationsController>();
-        animations = GetComponent<ArrayAnimation>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        arrayParticles = GetComponent<ArrayParticals>();
-        // Определяем время проигрывания анимации
-        runTimeAnimation = animations.RunningTime / animations.runningSpeed;
-        leftTimeAnimation = animations.RunLeftTime / animator.GetFloat("RunningLeft");
-        rightTimeAnimation = animations.RunRightTime / animator.GetFloat("RunningRight");
-        jumpTimeAnimation = animations.JumpTime / animator.GetFloat("Jumping");
     }
     void Update()
     {
@@ -72,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Движение вперед
-        speedRunning = step * speedIndex / runTimeAnimation;
+        speedRunning = step * speedIndex / anim.RunTimeAnimation;
         float distancePerFrame = speedRunning * Time.deltaTime;
         move = Vector3.forward * distancePerFrame;
 
@@ -80,26 +62,27 @@ public class PlayerController : MonoBehaviour
         if (!isMoving && !isFall &&!IsJumping && direction != 0)
         {
             isMoving = true;
-            isAimated = false;
+            anim.IsAimated = false;
             currentDirection = direction;
             currentDistance = distance;
             startPossition = transform.position.x;
         }
         if (isMoving)
         {
+            StartCoroutine(anim.AnimateSidesMovment(currentDirection));
             StartCoroutine(MoveSides());
         }
 
         // Прыжок
         if (!IsJumping && !isFall &&!isMoving && Input.GetKeyDown(KeyCode.Space))
         {
-            isAimated = false;
+            anim.IsAimated = false;
             IsJumping = true;
-            JumpDetect = false;
             currentHeight = height;
         }        
         if (IsJumping)
         {
+            StartCoroutine(anim.AnimateJump());
             StartCoroutine(Jump());
         }
         move.y += gravity * Time.deltaTime;
@@ -111,32 +94,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator MoveSides()
     {
-        if (!isAimated)
-        {
-            if (currentDirection > 0)
-            {
-                animator.SetTrigger("Right");
-            }
-            if (currentDirection < 0)
-            {
-                animator.SetTrigger("Left");
-            }
-            isAimated = true;
-        }
-        
         if (currentDistance <= 0.1)
         {
             isMoving = false;
             yield break;
         }
         // Вычесляем скорость от анимаций переката
-        leftTimeAnimation = animations.RunLeftTime / animator.GetFloat("RunningLeft");
-        rightTimeAnimation = animations.RunRightTime / animator.GetFloat("RunningRight");
         float speed = distance;
         if (currentDirection < 0)
-            speed /= leftTimeAnimation;
+            speed /= anim.LeftTimeAnimation;
         if(currentDirection > 0)
-            speed /= rightTimeAnimation;
+            speed /= anim.RightTimeAnimation;
 
         float distancePerFrame = speed * Time.deltaTime;
         move += Vector3.right * currentDirection * distancePerFrame;
@@ -149,49 +117,20 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Jump()
     {
-        // Расчитываем время от нажатия кнопки прыжка до точки где персонаж начинает взбираться на препятствие
-        //float distanceToStart = startJump - transform.position.z;
-        //float waitTime = distanceToStart / speedRunning;
-
-        //yield return new WaitForSeconds(waitTime);
-
-        // Возвращаем параметры которые изменили после проигрывания анимации 
-        //changeParam = StartCoroutine(ChangeParam());
-
-        // Вызываем анимацию прыжка
-        if (!isAimated)
-        {
-            animator.SetTrigger("Jump");
-            isAimated = true;
-        }
 
         if (currentHeight <= jumpStopHeight)
         {
             speedIndex = 1;
             IsJumping = false;
-            JumpDetect = false;
             yield break;
         }
-        // Вычесляем скорость анимации
-        jumpTimeAnimation = animations.JumpTime / animator.GetFloat("Jumping");
         // float HighOfJump устанавливается кривой в анимации прыжка; 
         // speedIndex снижает скорость движения вперед во время прыжка
         speedIndex = animator.GetFloat("HighOfJump") * slowingRunDuringJump;
-        float speed = animator.GetFloat("HighOfJump") * height / jumpTimeAnimation;
+        float speed = animator.GetFloat("HighOfJump") * height / anim.JumpTimeAnimation;
         float distancePerFrame = speed * Time.deltaTime;
         controller.Move(Vector3.up * distancePerFrame);
         currentHeight -= distancePerFrame;
-    }
-
-    /// <summary>
-    /// Срабатывает когда игрок попадаетв зону детекции прыжка
-    /// </summary>
-    /// <param name="startPoint">Точка включения анимации прыжка</param>
-    /// <param name="playerDetection">Проверка попал ли игрок в колайдер</param>
-    public void JumpDetection(float startPoint, bool playerDetection)
-    {
-        startJump = startPoint;
-        JumpDetect = playerDetection; 
     }
     
     /// <summary>
@@ -208,11 +147,7 @@ public class PlayerController : MonoBehaviour
         }
         isDizzy = true;
 
-        animator.SetTrigger("ReturnBack");
-
-        animator.SetLayerWeight(1, 1);
-
-        arrayParticles.particles[1].Play();
+        StartCoroutine(anim.animateDizzy(dizzyDuration));
 
         currentDistance = 0;
 
@@ -220,11 +155,7 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(Vector3.right * distanceBack * -currentDirection);
 
-        yield return new WaitForSeconds(10);
-
-        animator.SetLayerWeight(1, 0);
-
-        arrayParticles.particles[1].Stop();
+        yield return new WaitForSeconds(dizzyDuration);
 
         isDizzy = false;
     }
@@ -237,8 +168,7 @@ public class PlayerController : MonoBehaviour
         RoadsController.isFall = true;
         isFall = true;
         speedIndex = 0f;
-        animator.SetTrigger("Fall");
-        animator.SetLayerWeight(1, 0);
+        StartCoroutine(anim.animateFalling());
 
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("Runner");
