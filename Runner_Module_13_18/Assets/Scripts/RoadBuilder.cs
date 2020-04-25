@@ -28,7 +28,7 @@ public class RoadBuilder : MonoBehaviour
     }
     private void Init()
     {
-        CreateFreeRoad();
+        CreateFreeRoadByIndex(0);
         for (int i = 0; i < 5; i++)
         {
             CreateEnviroment();
@@ -66,6 +66,14 @@ public class RoadBuilder : MonoBehaviour
             roadContainer.position : lastRoad.GetComponent<RoadState>().roadEnd.position;
 
         int index = Random.Range(0, freeRoads.Length);
+        GameObject road = Instantiate(freeRoads[index], possition, Quaternion.identity, roadContainer);
+        lastRoad = road.transform;
+    }
+    private void CreateFreeRoadByIndex(int index)
+    {
+        Vector3 possition = (lastRoad == null) ?
+            roadContainer.position : lastRoad.GetComponent<RoadState>().roadEnd.position;
+
         GameObject road = Instantiate(freeRoads[index], possition, Quaternion.identity, roadContainer);
         lastRoad = road.transform;
     }
