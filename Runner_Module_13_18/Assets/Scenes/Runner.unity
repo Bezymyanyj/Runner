@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a04f3a72e265a843ab5d9d3b1ff2438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minZ: -120
+  minZ: -20
   speed: 6
   speedTimeChanging: 15
   speedValueChanging: 1
@@ -6450,17 +6450,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeRoads:
-  - {fileID: 6922931851669990513, guid: 0f20ca87ed2e1dc438efa8f0618eaee1, type: 3}
-  - {fileID: 6922931851669990513, guid: 54ab46ec78501f34cb1bd2bacf2c3461, type: 3}
-  - {fileID: 6922931851669990513, guid: 5551b8ac46de968449769224475a03e6, type: 3}
-  - {fileID: 6922931851669990513, guid: db3c584bc199d2c4291b32acdbfc97c6, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
   obstacleRoads:
-  - {fileID: 557215717273251542, guid: 9ef41c759b49324488c18ccf333c1622, type: 3}
-  - {fileID: 557215717273251542, guid: ca9d5a0fa2fc5104091954630d17427d, type: 3}
-  - {fileID: 557215717273251542, guid: e89652cf20ad22243b2e450ec66857ee, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
   hardObstacleRoads:
-  - {fileID: 557215717273251542, guid: ec4d4acee066e1842a7c7afb359a4f64, type: 3}
-  - {fileID: 557215717273251542, guid: 9cafdf11fabf87344bfb14f4153562ad, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
+  - {fileID: 6922931851669990513, guid: 44db7c95f4feb3548aa9a9523f99b82f, type: 3}
   enviroment:
   - {fileID: 6922931851669990513, guid: a64da7b59615612469cdeea1268f9dc2, type: 3}
   - {fileID: 6922931851669990513, guid: 56b7ea582840fd6488075329502889b3, type: 3}
