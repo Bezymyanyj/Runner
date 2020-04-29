@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public float jumpStopHeight = 1.5f;
     public float dizzyDuration = 10f;
 
+    public CameraController cameraController;
+    public GameObject body;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private AnimationsController anim;
     private Animator animator;
+    private BonesController bones;
 
     private float currentDirection;
     private float currentHeight;
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<AnimationsController>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        bones = GetComponent<BonesController>();
     }
     void Update()
     {
@@ -168,7 +172,11 @@ public class PlayerController : MonoBehaviour
         RoadsController.isFall = true;
         isFall = true;
         speedIndex = 0f;
-        StartCoroutine(anim.animateFalling());
+        animator.enabled = false;
+        yield return null;
+        bones.TurnOnTrigers();
+        cameraController.player = body;
+        //StartCoroutine(anim.animateFalling());
 
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("Runner");
