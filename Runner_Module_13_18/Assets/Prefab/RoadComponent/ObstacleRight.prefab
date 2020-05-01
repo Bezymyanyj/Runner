@@ -174,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 5252263940681007278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.88600004, z: 0}
-  m_LocalScale: {x: 0.30970216, y: 0.30970216, z: 0.30970216}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 453176034964444528}
   m_RootOrder: 1
@@ -205,7 +205,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1d91494e0ca7904d930f0eb02856cc7, type: 2}
+  - {fileID: 2100000, guid: 64bd2efaa285fab47b0db63c327eb986, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,7 +265,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 5252263940084909679}
   m_Anchor: {x: 0, y: 0.2, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 8.83514, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 8.260001, z: 0}
   serializedVersion: 2
   m_Spring: 30
   m_Damper: 0.2
