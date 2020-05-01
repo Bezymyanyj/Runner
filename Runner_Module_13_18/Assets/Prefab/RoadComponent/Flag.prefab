@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 9b623eb1217a580448afd9416462e98f, type: 3}
+  - {fileID: 2100000, guid: 0561c5ce5c0c55e4a871e4f9825d1b27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,6 +87,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6311991846734933047}
     m_Modifications:
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dce9ceb98603ae6449cc13b80f08aed5, type: 2}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.084095
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.38278666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0059452057
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 2.185805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.38278666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669064988282578592, guid: 86908f93573ee274f9ad41319454b333,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 1.1124446
+      objectReference: {fileID: 0}
     - target: {fileID: 3669064988282578594, guid: 86908f93573ee274f9ad41319454b333,
         type: 3}
       propertyPath: m_Name
