@@ -33,7 +33,9 @@ public class RoadBuilder : MonoBehaviour
         {
             CreateEnviroment();
             CreateRoads();
+            CreateEnviroment();
         }
+
     }
     public void CreateRoads()
     {
