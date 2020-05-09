@@ -9,6 +9,8 @@ public class PickUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<ArrayParticals>().particles[0].Play();
+            UIController.Instance.CountBalls++;
+            UIController.Instance.UpdateBallText();
             Destroy(gameObject);
         }
         
