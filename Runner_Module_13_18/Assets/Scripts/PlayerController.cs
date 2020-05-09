@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         //StartCoroutine(anim.animateFalling());
 
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("Runner");
+        UIController.Instance.Fall();
 
     }
 }
