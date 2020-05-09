@@ -12,8 +12,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         offset = transform.position;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
     void LateUpdate()
     {
