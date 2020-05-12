@@ -461,7 +461,6 @@ GameObject:
   m_Component:
   - component: {fileID: 822139348}
   - component: {fileID: 822139349}
-  - component: {fileID: 822139350}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged
@@ -497,18 +496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainPanel: {fileID: 1542998418}
   topPanel: {fileID: 480857554}
---- !u!114 &822139350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822139347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59155653f15fd744f941400c7cdabaa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1021872590
 PrefabInstance:
   m_ObjectHideFlags: 0
