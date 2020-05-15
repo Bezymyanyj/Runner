@@ -180,6 +180,6 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(5);
         UIController.Instance.Fall();
-
+        Repository.Instance.CheckBestResult(Repository.Instance.Distance, Repository.Instance.CountBalls);
     }
 }

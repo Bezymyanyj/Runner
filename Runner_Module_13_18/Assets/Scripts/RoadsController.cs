@@ -47,7 +47,7 @@ public class RoadsController : SingletonAsComponent<RoadsController>
     // Update is called once per frame
     void Update()
     {
-        UIController.Instance.Distance = -transform.position.z;
+        Repository.Instance.Distance = -transform.position.z;
         if(!isFall)
             transform.position -= Vector3.forward * speed * Time.deltaTime;
     }

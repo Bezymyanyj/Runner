@@ -18,33 +18,33 @@ public class UIController : SingletonAsComponent<UIController>
     public Text[] distanceCount;
     public Text[] ballCount;
     public Text TopList;
-    private RecordsRepository rep;
+    private Repository rep;
 
     private bool isFall = false;
     private bool isPause = false;
     private bool isPlaying = true;
-    private string topResult;
-    private string numberTitle = "Number";
-    private string distanceTitle = "Distance";
-    private string ballsTitle = "Balls";
-    private int index = 1;
-    public Dictionary<int, int> Balls = new Dictionary<int, int>();
-    public Dictionary<int, float> Results = new Dictionary<int, float>();
-    public int CountBalls { get; set; }
-    public float Distance { get; set; }
+    //private string topResult;
+    //private string numberTitle = "Number";
+    //private string distanceTitle = "Distance";
+    //private string ballsTitle = "Balls";
+    //private int index = 1;
+    //public Dictionary<int, int> Balls = new Dictionary<int, int>();
+    //public Dictionary<int, float> Results = new Dictionary<int, float>();
+    //public int CountBalls { get; set; }
+    //public float Distance { get; set; }
 
     private void Start()
     {
-        rep = GetComponent<RecordsRepository>();
+        rep = GetComponent<Repository>();
     }
     private void Update()
     {
         if (isPlaying)
         {
             
-            distanceCount[0].text = $"{Distance.ToString("#")}";
-            distanceCount[1].text = $"Distance: {Distance.ToString("#")}";
-            distanceCount[2].text = $"Distance: {Distance.ToString("#")}";
+            distanceCount[0].text = $"{Repository.Instance.Distance.ToString("#")}";
+            distanceCount[1].text = $"Distance: {Repository.Instance.Distance.ToString("#")}";
+            distanceCount[2].text = $"Distance: {Repository.Instance.Distance.ToString("#")}";
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 isPause = !isPause;
@@ -68,14 +68,14 @@ public class UIController : SingletonAsComponent<UIController>
     {
         for (int i = 0; i < ballCount.Length; i++)
         {
-            ballCount[i].text = $"Balls: {CountBalls}";
+            ballCount[i].text = $"Balls: {Repository.Instance.CountBalls}";
         }
     }
 
     public void GoToTopMenu()
     {
         fallPanel.SetActive(false);
-        PrintTopResults();
+        TopList.text = Repository.Instance.PrintTopResults();
         topPanel.SetActive(true);
     }
 
@@ -93,7 +93,6 @@ public class UIController : SingletonAsComponent<UIController>
             isPlaying = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            CheckBestResult(Distance, CountBalls);
             fallPanel.SetActive(true);
         }
     }
@@ -102,48 +101,5 @@ public class UIController : SingletonAsComponent<UIController>
     {
         rep.Save();
         SceneManager.LoadScene("Runner");
-    }
-
-    private void PrintTopResults()
-    {
-        TopList.text = "";
-        string title = $"{numberTitle,5} {distanceTitle,25} {ballsTitle,10}\n";
-        TopList.text += title;
-        for (int i = 0; i < Results.Count; i++)
-        {
-            string dictance = Results[i].ToString("#");
-            TopList.text += string.Format($"{index++,5}. {dictance,25} {Balls[i],15}\n");
-        }
-        index = 1;
-        //Debug.Log(TopList.text);
-    }
-
-    private void CheckBestResult(float distance, int balls)
-    {
-        //Debug.Log("How many times, I write record?");
-        for (int i = 0; i < Results.Count; i++)
-        {
-            if (distance > Results[i])
-            {
-                int topTmp = Balls[i];
-                Balls[i] = balls;
-                balls = topTmp;
-                float tmp = Results[i];
-                Results[i] = distance;
-                distance = tmp;
-            }
-        }
-    }
-
-    private void PrintToLog()
-    {
-        foreach(KeyValuePair<int, int> i in Balls)
-        {
-            Debug.Log(i.Value);
-        }
-        foreach(KeyValuePair<int, float > i in Results)
-        {
-            Debug.Log(i.Value);
-        }
     }
 }

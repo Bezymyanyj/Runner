@@ -9,10 +9,12 @@ public class MainUiController : MonoBehaviour
     public GameObject mainPanel;
     public GameObject topPanel;
 
+    public Text TopList;
 
     public void GoToTopMenu()
     {
         mainPanel.SetActive(false);
+        TopList.text = Repository.Instance.PrintTopResults();
         topPanel.SetActive(true);
     }
 
