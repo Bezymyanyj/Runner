@@ -8,6 +8,7 @@ public class PickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<AudioSource>().Play();
             other.GetComponent<ArrayParticals>().particles[0].Play();
             Repository.Instance.CountBalls++;
             UIController.Instance.UpdateBallText();
