@@ -34,7 +34,6 @@ public class UIController : SingletonAsComponent<UIController>
         SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
         SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
         MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
-        //Invoke("SetUI", 0.2f);
         SetUI();
     }
     private void Update()
@@ -110,12 +109,17 @@ public class UIController : SingletonAsComponent<UIController>
         Repository.Instance.Save();
         SceneManager.LoadScene("Runner");
     }
+    /// <summary>
+    /// Проигрываем звук на слайдере громкости звуков
+    /// </summary>
     public void PlayClick()
     {
         if (!click.isPlaying)
             click.Play();
     }
-
+    /// <summary>
+    /// Устанавливаем значения на UI элементах
+    /// </summary>
     private void SetUI()
     {
         SoundTurnOnOff.isOn = AudioController.Instance.GetSoundOnOff();

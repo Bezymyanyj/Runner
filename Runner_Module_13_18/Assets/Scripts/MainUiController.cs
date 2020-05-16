@@ -23,7 +23,7 @@ public class MainUiController : MonoBehaviour
         SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
         SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
         MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
-        Invoke("SetUI", 0.2f);
+        SetUI();
     }
 
     public void GoToTopMenu()
@@ -55,11 +55,18 @@ public class MainUiController : MonoBehaviour
         Debug.Log("Exit");
         Application.Quit();
     }
+
+    /// <summary>
+    /// Проигрываем звук на слайдере громкости звуков
+    /// </summary>
     public void PlayClick()
     {
         if(!click.isPlaying)
             click.Play();
     }
+    /// <summary>
+    /// Устанавливаем значения на UI элементах
+    /// </summary>
     private void SetUI()
     {
         SoundTurnOnOff.isOn = AudioController.Instance.GetSoundOnOff();

@@ -26,11 +26,12 @@ public class AudioController : SingletonAsComponent<AudioController>
     private void Awake()
     {
         LoadSettingsRep();
-        //Invoke("SetSettings", 0.1f);
         SetSettings();
     }
 
-
+    /// <summary>
+    /// Загружаем Настройки звука
+    /// </summary>
     private void LoadSettingsRep()
     {
         if (File.Exists(Application.dataPath + pathSettings))
@@ -43,6 +44,9 @@ public class AudioController : SingletonAsComponent<AudioController>
         }
     }
 
+    /// <summary>
+    /// Сохраняем настройки звука
+    /// </summary>
     public void SaveFileSettings()
     {
         File.Delete(Application.dataPath + pathSettings);
@@ -52,7 +56,9 @@ public class AudioController : SingletonAsComponent<AudioController>
             File.AppendAllText(Application.dataPath + pathSettings, $"{item.Key}, {item.Value}\n");
         }
     }
-
+    /// <summary>
+    /// Создаем файл с настройками звука
+    /// </summary>
     private void CreateFileSettings()
     {
         File.AppendAllText(Application.dataPath + pathSettings, $"Sound, 1\n");
@@ -60,6 +66,9 @@ public class AudioController : SingletonAsComponent<AudioController>
         File.AppendAllText(Application.dataPath + pathSettings, $"MusicValue, 0\n");
     }
 
+    /// <summary>
+    /// Читаем настройки звука и записываем в словарь
+    /// </summary>
     private void LoadSetting()
     {
         using (StreamReader sr = new StreamReader(Application.dataPath + pathSettings))
@@ -72,7 +81,9 @@ public class AudioController : SingletonAsComponent<AudioController>
             }
         }
     }
-
+    /// <summary>
+    /// Переводим значение включен звук или нет из float to bool
+    /// </summary>
     private void SetSettings()
     {
         if (Settings["Sound"] < 1)
