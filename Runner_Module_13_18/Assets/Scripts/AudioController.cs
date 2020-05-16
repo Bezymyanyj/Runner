@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 public class AudioController : SingletonAsComponent<AudioController>
@@ -11,23 +12,92 @@ public class AudioController : SingletonAsComponent<AudioController>
         set { _Instance = value; }
     }
 
-    private bool soundOnOff = true;
-    private float soundValue = 0f;
-    private float musicValue = 0f;
+    private string pathSettings = "/settings.csv";
 
+    public Dictionary<string, float> Settings = new Dictionary<string, float>()
+    {
+        { "Sound", 1 },
+        { "SoundValue", 0 },
+        { "MusicValue", 0 }
+    };
+
+    private bool soundOnOff = true;
+
+    private void Awake()
+    {
+        LoadSettingsRep();
+        //Invoke("SetSettings", 0.1f);
+        SetSettings();
+    }
+
+
+    private void LoadSettingsRep()
+    {
+        if (File.Exists(Application.dataPath + pathSettings))
+        {
+            this.LoadSetting();
+        }
+        else
+        {
+            CreateFileSettings();
+        }
+    }
+
+    public void SaveFileSettings()
+    {
+        File.Delete(Application.dataPath + pathSettings);
+
+        foreach (var item in Settings)
+        {
+            File.AppendAllText(Application.dataPath + pathSettings, $"{item.Key}, {item.Value}\n");
+        }
+    }
+
+    private void CreateFileSettings()
+    {
+        File.AppendAllText(Application.dataPath + pathSettings, $"Sound, 1\n");
+        File.AppendAllText(Application.dataPath + pathSettings, $"SoundValue, 0\n");
+        File.AppendAllText(Application.dataPath + pathSettings, $"MusicValue, 0\n");
+    }
+
+    private void LoadSetting()
+    {
+        using (StreamReader sr = new StreamReader(Application.dataPath + pathSettings))
+        {
+            while (!sr.EndOfStream)
+            {
+                string[] args = sr.ReadLine().Split(',');
+
+                Settings[args[0]] = float.Parse(args[1]);
+            }
+        }
+    }
+
+    private void SetSettings()
+    {
+        if (Settings["Sound"] < 1)
+        {
+            soundOnOff = false;
+        }
+        else
+        {
+            soundOnOff = true;
+        }
+        SetSoundOnOff(soundOnOff);
+    }
     #region //Получаем значение
-    public void SoundOnOff( bool turn)
+    public void SetSoundOnOff( bool turn)
     {
         soundOnOff = turn;
-    }
-
-    public void SoundValue(float value)
-    {
-        soundValue = value;
-    }
-    public void MusicValue(float value)
-    {
-        musicValue = value;
+        if (turn)
+        {
+            Settings["Sound"] = 1;
+        }
+        else
+        {
+            Settings["Sound"] = 0;
+        }
+        
     }
     #endregion
 
@@ -36,15 +106,14 @@ public class AudioController : SingletonAsComponent<AudioController>
     {
         return soundOnOff;
     }
-
-    public float GetSoundValue()
-    {
-        return soundValue;
-    }
-
-    public float GetMusicValue()
-    {
-        return musicValue;
-    }
     #endregion
+
+    //Debug
+    private void PrintToLog()
+    {
+        foreach (KeyValuePair<string, float> i in Settings)
+        {
+            Debug.Log($"{i.Key} {i.Value}");
+        }
+    }
 }

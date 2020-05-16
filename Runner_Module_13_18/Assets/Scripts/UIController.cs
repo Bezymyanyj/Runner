@@ -34,6 +34,8 @@ public class UIController : SingletonAsComponent<UIController>
         SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
         SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
         MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
+        //Invoke("SetUI", 0.2f);
+        SetUI();
     }
     private void Update()
     {
@@ -59,6 +61,7 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void ExitApplication()
     {
+        AudioController.Instance.SaveFileSettings();
         click.Play();
         Debug.Log("Exit");
         Repository.Instance.Save();
@@ -102,27 +105,34 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void RestartGame()
     {
+        AudioController.Instance.SaveFileSettings();
         click.Play();
         Repository.Instance.Save();
         SceneManager.LoadScene("Runner");
     }
 
+    private void SetUI()
+    {
+        SoundTurnOnOff.isOn = AudioController.Instance.GetSoundOnOff();
+        SoundValue.SetValueWithoutNotify(AudioController.Instance.Settings["SoundValue"]);
+        MusicValue.SetValueWithoutNotify(AudioController.Instance.Settings["MusicValue"]);
+    }
     #region // Устанавливаем громкость звука
     private void TurnOnOffSound(Toggle change)
     {
-        AudioController.Instance.SoundOnOff(change.isOn);
+        AudioController.Instance.SetSoundOnOff(change.isOn);
         mixerController.SoundOnOff(change.isOn);
     }
 
     private void ChangeSoundValue()
     {
-        AudioController.Instance.SoundValue(SoundValue.value);
+        AudioController.Instance.Settings["SoundValue"] = SoundValue.value;
         mixerController.SoundValue(SoundValue.value);
     }
 
     private void ChangeMusicValue()
     {
-        AudioController.Instance.MusicValue(MusicValue.value);
+        AudioController.Instance.Settings["MusicValue"] = MusicValue.value;
         mixerController.MusicValue(MusicValue.value);
     }
     #endregion

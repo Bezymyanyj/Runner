@@ -10,9 +10,8 @@ public class MixerController : MonoBehaviour
 
     private void Start()
     {
-        SoundOnOff(AudioController.Instance.GetSoundOnOff());
-        SoundValue(AudioController.Instance.GetSoundValue());
-        MusicValue(AudioController.Instance.GetMusicValue());
+        //Invoke("SetVolume", 0.1f);
+        SetVolume();
     }
     public void SoundOnOff(bool turn)
     {
@@ -29,5 +28,12 @@ public class MixerController : MonoBehaviour
     public void MusicValue(float value)
     {
         Mixer.SetFloat("MusicValue", value);
+    }
+
+    private void SetVolume()
+    {
+        SoundOnOff(AudioController.Instance.GetSoundOnOff());
+        SoundValue(AudioController.Instance.Settings["SoundValue"]);
+        MusicValue(AudioController.Instance.Settings["MusicValue"]);
     }
 }

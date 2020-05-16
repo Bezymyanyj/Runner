@@ -24,6 +24,7 @@ public class Repository : SingletonAsComponent<Repository>
     private string ballsTitle = "Balls";
     public Dictionary<int, int> Balls = new Dictionary<int, int>();
     public Dictionary<int, float> Results = new Dictionary<int, float>();
+    
     public int CountBalls { get; set; }
     public float Distance { get; set; }
     // Start is called before the first frame update
@@ -31,7 +32,7 @@ public class Repository : SingletonAsComponent<Repository>
     {
         //Загружаем рекорды на старте
         LoadRepository();
-        //PrintToLog();
+        
     }
     /// <summary>
     /// Загружаем рекорды
@@ -49,6 +50,7 @@ public class Repository : SingletonAsComponent<Repository>
             //Debug.Log("Create New File");
         }
     }
+
     /// <summary>
     /// Сохраняем рекорды
     /// </summary>
@@ -94,6 +96,8 @@ public class Repository : SingletonAsComponent<Repository>
         }
         index = 0;
     }
+
+    
     /// <summary>
     /// Функция вывода результатов в строку
     /// </summary>
@@ -141,11 +145,11 @@ public class Repository : SingletonAsComponent<Repository>
     {
         foreach (KeyValuePair<int, int> i in Balls)
         {
-            Debug.Log(i.Value);
+            //Debug.Log(i.Value);
         }
         foreach (KeyValuePair<int, float> i in Results)
         {
-            Debug.Log(i.Value);
+            //Debug.Log(i.Value);
         }
     }
 }
