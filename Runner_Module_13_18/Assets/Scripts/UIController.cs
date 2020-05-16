@@ -110,6 +110,11 @@ public class UIController : SingletonAsComponent<UIController>
         Repository.Instance.Save();
         SceneManager.LoadScene("Runner");
     }
+    public void PlayClick()
+    {
+        if (!click.isPlaying)
+            click.Play();
+    }
 
     private void SetUI()
     {

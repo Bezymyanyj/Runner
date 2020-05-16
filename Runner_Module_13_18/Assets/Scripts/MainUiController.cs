@@ -55,7 +55,11 @@ public class MainUiController : MonoBehaviour
         Debug.Log("Exit");
         Application.Quit();
     }
-
+    public void PlayClick()
+    {
+        if(!click.isPlaying)
+            click.Play();
+    }
     private void SetUI()
     {
         SoundTurnOnOff.isOn = AudioController.Instance.GetSoundOnOff();
@@ -80,5 +84,7 @@ public class MainUiController : MonoBehaviour
         AudioController.Instance.Settings["MusicValue"] = MusicValue.value;
         mixerController.MusicValue(MusicValue.value);
     }
+
+    
     #endregion
 }
