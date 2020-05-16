@@ -30,20 +30,20 @@ public class Repository : SingletonAsComponent<Repository>
     void Start()
     {
         LoadRepository();
-        PrintToLog();
+        //PrintToLog();
     }
 
     private void LoadRepository()
     {
         if (File.Exists(Application.dataPath + path))
         {
-            Debug.Log("Load File");
+            //Debug.Log("Load File");
             this.Load(); // Загрузка данных
         }
         else
         {
             CreateFile(path);
-            Debug.Log("Create New File");
+            //Debug.Log("Create New File");
         }
     }
 
@@ -72,7 +72,7 @@ public class Repository : SingletonAsComponent<Repository>
         {
             while (!sr.EndOfStream)
             {
-                Debug.Log("Read Line Index:" + index);
+                //Debug.Log("Read Line Index:" + index);
                 string[] args = sr.ReadLine().Split(',');
                 
                 Results.Add(index, float.Parse(args[0]));
