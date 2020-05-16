@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 public class AudioController : SingletonAsComponent<AudioController>
 {
+    //В этом классе хранятся данные о настройке звука и эти данные передаются между сценами
     public static AudioController Instance
     {
         get { return ((AudioController)_Instance); }
@@ -14,6 +15,7 @@ public class AudioController : SingletonAsComponent<AudioController>
     private float soundValue = 0f;
     private float musicValue = 0f;
 
+    #region //Получаем значение
     public void SoundOnOff( bool turn)
     {
         soundOnOff = turn;
@@ -27,7 +29,9 @@ public class AudioController : SingletonAsComponent<AudioController>
     {
         musicValue = value;
     }
+    #endregion
 
+    #region    // Отправляем значение
     public bool GetSoundOnOff()
     {
         return soundOnOff;
@@ -42,4 +46,5 @@ public class AudioController : SingletonAsComponent<AudioController>
     {
         return musicValue;
     }
+    #endregion
 }

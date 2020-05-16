@@ -37,6 +37,9 @@ public class RoadBuilder : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// Строит дороги
+    /// </summary>
     public void CreateRoads()
     {
         int weight = Random.Range(1, 101);
@@ -56,7 +59,9 @@ public class RoadBuilder : MonoBehaviour
             wasFreeCreate = false;
         }
     }
-
+    /// <summary>
+    /// Строит окружение
+    /// </summary>
     public void CreateEnviroments()
     {
         CreateEnviroment();

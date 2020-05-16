@@ -30,6 +30,7 @@ public class UIController : SingletonAsComponent<UIController>
     private void Start()
     {
         click = GetComponent<AudioSource>();
+        // Подписываемся на тогле и слайдеры
         SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
         SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
         MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
@@ -42,6 +43,8 @@ public class UIController : SingletonAsComponent<UIController>
             distanceCount[0].text = $"{Repository.Instance.Distance.ToString("#")}";
             distanceCount[1].text = $"Distance: {Repository.Instance.Distance.ToString("#")}";
             distanceCount[2].text = $"Distance: {Repository.Instance.Distance.ToString("#")}";
+
+            //Вызов меню паузы
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 isPause = !isPause;
@@ -104,6 +107,7 @@ public class UIController : SingletonAsComponent<UIController>
         SceneManager.LoadScene("Runner");
     }
 
+    #region // Устанавливаем громкость звука
     private void TurnOnOffSound(Toggle change)
     {
         AudioController.Instance.SoundOnOff(change.isOn);
@@ -121,4 +125,5 @@ public class UIController : SingletonAsComponent<UIController>
         AudioController.Instance.MusicValue(MusicValue.value);
         mixerController.MusicValue(MusicValue.value);
     }
+    #endregion
 }

@@ -29,10 +29,13 @@ public class Repository : SingletonAsComponent<Repository>
     // Start is called before the first frame update
     void Start()
     {
+        //Загружаем рекорды на старте
         LoadRepository();
         //PrintToLog();
     }
-
+    /// <summary>
+    /// Загружаем рекорды
+    /// </summary>
     private void LoadRepository()
     {
         if (File.Exists(Application.dataPath + path))
@@ -46,7 +49,9 @@ public class Repository : SingletonAsComponent<Repository>
             //Debug.Log("Create New File");
         }
     }
-
+    /// <summary>
+    /// Сохраняем рекорды
+    /// </summary>
     public void Save()
     {
         File.Delete(Application.dataPath + path);
@@ -57,7 +62,11 @@ public class Repository : SingletonAsComponent<Repository>
         }
     }
 
-
+    /// <summary>
+    /// Если файла не сузествет, создаем новый
+    /// Заполняем дефолтными значениями
+    /// </summary>
+    /// <param name="path">Путь к файлу</param>
     private void CreateFile(string path)
     {
         for (int i = 0; i < 10; i++)
@@ -66,6 +75,9 @@ public class Repository : SingletonAsComponent<Repository>
         }
     }
 
+    /// <summary>
+    /// Читаем данные из файла
+    /// </summary>
     private void Load()
     {
         using (StreamReader sr = new StreamReader(Application.dataPath + path))
@@ -82,7 +94,10 @@ public class Repository : SingletonAsComponent<Repository>
         }
         index = 0;
     }
-
+    /// <summary>
+    /// Функция вывода результатов в строку
+    /// </summary>
+    /// <returns>Возвращаем рекорды</returns>
     public string PrintTopResults()
     {
         index++;
@@ -99,6 +114,12 @@ public class Repository : SingletonAsComponent<Repository>
         //Debug.Log(TopList.text);
     }
 
+    /// <summary>
+    /// Проверка результатов игры
+    /// Если установлен новый рекорд то записываем в таблицу рекрдов.
+    /// </summary>
+    /// <param name="distance"></param>
+    /// <param name="balls"></param>
     public void CheckBestResult(float distance, int balls)
     {
         //Debug.Log("How many times, I write record?");
@@ -115,6 +136,7 @@ public class Repository : SingletonAsComponent<Repository>
             }
         }
     }
+    //Debug
     private void PrintToLog()
     {
         foreach (KeyValuePair<int, int> i in Balls)

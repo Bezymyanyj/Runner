@@ -18,10 +18,11 @@ public class MainUiController : MonoBehaviour
     private AudioSource click;
     private void Start()
     {
+        click = GetComponent<AudioSource>();
+        // Подписываемся на тогле и слайдеры
         SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
         SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
         MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
-        click = GetComponent<AudioSource>();
     }
 
     public void GoToTopMenu()
@@ -51,6 +52,7 @@ public class MainUiController : MonoBehaviour
         Debug.Log("Exit");
         Application.Quit();
     }
+    #region // Устанавливаем громкость звука
     private void TurnOnOffSound(Toggle change)
     {
         AudioController.Instance.SoundOnOff(change.isOn);
@@ -68,4 +70,5 @@ public class MainUiController : MonoBehaviour
         AudioController.Instance.MusicValue(MusicValue.value);
         mixerController.MusicValue(MusicValue.value);
     }
+    #endregion
 }

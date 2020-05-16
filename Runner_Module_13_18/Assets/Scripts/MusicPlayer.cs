@@ -9,12 +9,12 @@ public class MusicPlayer : MonoBehaviour
 
     public AudioClip[] clips;
 
-    [Tooltip("Скорость плавного перехода между треками.")]
+    //Скорость плавного перехода между треками
     public float crossFadeRate = 1.5f;
 
-    [Tooltip("Первый источник музыки.")]
+    //Первый источник музыки
     public AudioSource musicFirstSource;
-    [Tooltip("Второй источник музыки.")]
+    //Второй источник музыки
     public AudioSource musicSecondSource;
 
     private AudioSource firstMusic;
@@ -46,7 +46,9 @@ public class MusicPlayer : MonoBehaviour
             //Debug.Log("Next Track");
         }
     }
-
+    /// <summary>
+    /// Переключаем треки
+    /// </summary>
     private void NextMusic()
     {
         if (clips.Length == 0)
