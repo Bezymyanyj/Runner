@@ -12,30 +12,27 @@ public class UIController : SingletonAsComponent<UIController>
         set { _Instance = value; }
     }
 
+    public MixerController mixerController;
     public GameObject pausePanel;
     public GameObject topPanel;
     public GameObject fallPanel;
     public Text[] distanceCount;
     public Text[] ballCount;
     public Text TopList;
-    private Repository rep;
+    public Toggle SoundTurnOnOff;
+    public Slider SoundValue;
+    public Slider MusicValue;
 
+    private AudioSource click;
     private bool isFall = false;
     private bool isPause = false;
     private bool isPlaying = true;
-    //private string topResult;
-    //private string numberTitle = "Number";
-    //private string distanceTitle = "Distance";
-    //private string ballsTitle = "Balls";
-    //private int index = 1;
-    //public Dictionary<int, int> Balls = new Dictionary<int, int>();
-    //public Dictionary<int, float> Results = new Dictionary<int, float>();
-    //public int CountBalls { get; set; }
-    //public float Distance { get; set; }
-
     private void Start()
     {
-        rep = GetComponent<Repository>();
+        click = GetComponent<AudioSource>();
+        SoundTurnOnOff.onValueChanged.AddListener(delegate { TurnOnOffSound(SoundTurnOnOff); });
+        SoundValue.onValueChanged.AddListener(delegate { ChangeSoundValue(); });
+        MusicValue.onValueChanged.AddListener(delegate { ChangeMusicValue(); });
     }
     private void Update()
     {
@@ -59,8 +56,9 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void ExitApplication()
     {
+        click.Play();
         Debug.Log("Exit");
-        rep.Save();
+        Repository.Instance.Save();
         Application.Quit();
     }
 
@@ -74,6 +72,7 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void GoToTopMenu()
     {
+        click.Play();
         fallPanel.SetActive(false);
         TopList.text = Repository.Instance.PrintTopResults();
         topPanel.SetActive(true);
@@ -81,6 +80,7 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void GoToMainMenu()
     {
+        click.Play();
         fallPanel.SetActive(true);
         topPanel.SetActive(false);
     }
@@ -99,7 +99,26 @@ public class UIController : SingletonAsComponent<UIController>
 
     public void RestartGame()
     {
-        rep.Save();
+        click.Play();
+        Repository.Instance.Save();
         SceneManager.LoadScene("Runner");
+    }
+
+    private void TurnOnOffSound(Toggle change)
+    {
+        AudioController.Instance.SoundOnOff(change.isOn);
+        mixerController.SoundOnOff(change.isOn);
+    }
+
+    private void ChangeSoundValue()
+    {
+        AudioController.Instance.SoundValue(SoundValue.value);
+        mixerController.SoundValue(SoundValue.value);
+    }
+
+    private void ChangeMusicValue()
+    {
+        AudioController.Instance.MusicValue(MusicValue.value);
+        mixerController.MusicValue(MusicValue.value);
     }
 }
