@@ -48,14 +48,35 @@ public class UIController : SingletonAsComponent<UIController>
             //Вызов меню паузы
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isPause = !isPause;
+                if (!isPause)
+                {
+                    PauseGame();
+                }
+                else
+                {
+                    UnPauseGame();
+                }
             }
-
-            Time.timeScale = isPause ? 0 : 1;
-            Cursor.lockState = isPause ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = isPause ? true : false;
-            pausePanel.SetActive(isPause ? true : false);
         }
+    }
+
+    public void PauseGame()
+    {
+        isPause = true;
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pausePanel.SetActive(true);
+    }
+
+    public void UnPauseGame()
+    {
+        isPause = false;
+        AudioController.Instance.SaveFileSettings();
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pausePanel.SetActive(false);
     }
 
     public void ExitApplication()
