@@ -53,7 +53,7 @@ public class AudioController : SingletonAsComponent<AudioController>
 
         foreach (var item in Settings)
         {
-            File.AppendAllText(Application.dataPath + pathSettings, $"{item.Key}, {item.Value}\n");
+            File.AppendAllText(Application.dataPath + pathSettings, $"{item.Key}, {item.Value.ToString("#")}\n");
         }
     }
     /// <summary>

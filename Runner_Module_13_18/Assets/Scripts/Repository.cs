@@ -32,7 +32,6 @@ public class Repository : SingletonAsComponent<Repository>
     {
         //Загружаем рекорды на старте
         LoadRepository();
-        
     }
     /// <summary>
     /// Загружаем рекорды
